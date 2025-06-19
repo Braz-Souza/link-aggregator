@@ -4,22 +4,22 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 import { 
-  FBCLIENT_API_KEY, 
-  FBCLIENT_AUTH_DOMAIN,
-  FBCLIENT_PROJECT_ID,
-  FBCLIENT_STORAGE_BUCKET,
-  FBCLIENT_MESSAGING_SENDER_ID,
-  FBCLIENT_APP_ID 
-} from "$env/static/private";
+  PUBLIC_FBCLIENT_API_KEY, 
+  PUBLIC_FBCLIENT_AUTH_DOMAIN,
+  PUBLIC_FBCLIENT_PROJECT_ID,
+  PUBLIC_FBCLIENT_STORAGE_BUCKET,
+  PUBLIC_FBCLIENT_MESSAGING_SENDER_ID,
+  PUBLIC_FBCLIENT_APP_ID 
+} from "$env/static/public";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: FBCLIENT_API_KEY,
-  authDomain: FBCLIENT_AUTH_DOMAIN,
-  projectId: FBCLIENT_PROJECT_ID,
-  storageBucket: FBCLIENT_STORAGE_BUCKET,
-  messagingSenderId: FBCLIENT_MESSAGING_SENDER_ID,
-  appId: FBCLIENT_APP_ID
+  apiKey: PUBLIC_FBCLIENT_API_KEY,
+  authDomain: PUBLIC_FBCLIENT_AUTH_DOMAIN,
+  projectId: PUBLIC_FBCLIENT_PROJECT_ID,
+  storageBucket: PUBLIC_FBCLIENT_STORAGE_BUCKET,
+  messagingSenderId: PUBLIC_FBCLIENT_MESSAGING_SENDER_ID,
+  appId: PUBLIC_FBCLIENT_APP_ID
 };
 
 // Initialize Firebase
