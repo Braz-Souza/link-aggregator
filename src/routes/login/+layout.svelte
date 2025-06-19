@@ -1,5 +1,7 @@
 <script lang="ts">
   import { page } from "$app/stores";
+  import { fly } from "svelte/transition";
+
   let { children } = $props();
   // Source Data
   const steps = [
@@ -8,14 +10,6 @@
     { label: "Photo", href: "/login/photo" },
   ];
   const betweenSteps = steps.length - 1;
-
-  function defineColorStep(i : number) {
-    const atualI = steps.findIndex(step => step.href === $page.route.id);
-    if (i <= atualI) {
-      return "preset-filled-primary-500";
-    }
-    return "preset-filled-surface-200-800";
-  }
 </script>
 
 <div class="w-full py-4 md-12 flex justify-center items-start gap-8">
@@ -51,8 +45,12 @@
   </div>
 </div>
 
-<main class="card w-4/6 bg-neutral text-neutral-content mx-auto">
-  <div class="card-body items-center text-center">
-    {@render children?.()}
+{#key $page.url}
+<main in:fly={{x:'-100%', duration: 500}} class="card w-4/6 bg-neutral text-neutral-content mx-auto">
+  <div class="card-body items-center text-center flex justify-center py-8">
+    <div class="card preset-filled-surface-100-900 border-[1px] border-surface-200-800 card-hover divide-surface-200-800 block max-w-md divide-y overflow-hidden">
+      {@render children?.()}
+    </div>
   </div>
 </main>
+{/key}
