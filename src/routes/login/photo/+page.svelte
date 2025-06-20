@@ -1,7 +1,7 @@
 <script lang="ts">
   import { user, userData, storage, db } from "$lib/firebase";
   import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-  import AuthCheck from "../../components/AuthCheck.svelte";
+  import AuthCheck from "../../../lib/components/AuthCheck.svelte";
   import { doc, updateDoc } from "firebase/firestore";
 
   let previewURL: string | null = $state(null);
