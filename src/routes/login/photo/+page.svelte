@@ -1,18 +1,52 @@
 <script lang="ts">
+  import { FileUpload } from "@skeletonlabs/skeleton-svelte";
+  import { user, userData, storage, db } from "$lib/firebase";
+  import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
   import AuthCheck from "../../components/AuthCheck.svelte";
+  import { doc, updateDoc } from "firebase/firestore";
+
+  let previewURL: string | null = $state(null);
+  let uploading: boolean = $state(false);
+  // let href: string = $derived(`/${$userData?.username}/edit`);
+  let href: string = "/login/photo";
+
+  async function upload(e: any) {
+    uploading = true;
+    const file = e.target.files[0];
+    previewURL = URL.createObjectURL(file);
+    const storageRef = ref(storage, `users/${$user!.uid}/profile.png`);
+    const result = await uploadBytes(storageRef, file);
+    const url = await getDownloadURL(result.ref);
+    await updateDoc(doc(db, "users", $user!.uid), { photoURL: url });
+    uploading = false;
+  }
 </script>
 
 <AuthCheck>
   <article class="space-y-4 p-4">
     <div>
-      <h2 class="h6">Photos</h2>
-      <h3 class="h3">Skeleton is Awesome</h3>
+      <h2 class="h6">Upload Profile Photo</h2>
     </div>
-    <p class="opacity-60">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam
-      aspernatur provident eveniet eligendi cumque consequatur tempore sint nisi
-      sapiente. Iste beatae laboriosam iure molestias cum expedita architecto
-      itaque quae rem.
-    </p>
+    <img
+      src={previewURL ?? $userData?.photoURL ?? "/user.png"}
+      alt="Preview"
+      class="w-full h-64 object-cover rounded-lg"
+      width="256"
+      height="256"
+    />
+    <label for="photoURL" class="label">
+      <span class="label-text">Select Photo</span>
+      <input
+        type="file"
+        id="photoURL"
+        accept="image/png, image/jpeg, image/gif, image/webp"
+        class="w-full input file-input"
+        onchange={upload}
+      />
+      {#if uploading}
+        <span class="loading loading-spinner loading-sm"></span>
+      {/if}
+    </label>
+    <a {href} class="btn preset-filled-primary-500"> Finish </a>
   </article>
 </AuthCheck>
