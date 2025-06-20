@@ -7,7 +7,7 @@
 
 <a
   href={url}
-  class="card w-full preset-filled-surface-100-900 p-4 text-center flex flex-row"
+  class="card w-full preset-tonal-secondary p-4 text-center flex flex-row items-center"
   target="_blank"
 >
   <img
