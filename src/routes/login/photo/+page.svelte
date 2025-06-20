@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { FileUpload } from "@skeletonlabs/skeleton-svelte";
   import { user, userData, storage, db } from "$lib/firebase";
   import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
   import AuthCheck from "../../components/AuthCheck.svelte";
@@ -7,8 +6,7 @@
 
   let previewURL: string | null = $state(null);
   let uploading: boolean = $state(false);
-  // let href: string = $derived(`/${$userData?.username}/edit`);
-  let href: string = "/login/photo";
+  let href: string = $derived(`/${$userData?.username}/edit`);
 
   async function upload(e: any) {
     uploading = true;
